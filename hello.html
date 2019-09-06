@@ -8,19 +8,29 @@
 </head>
 
 <body>
-  <!-- <ul id="v-for-object" class="">
-    <li v-for="value in object">
-      {{ value }}
-    </li>
-  </ul> -->
+
   <ul id="v-for-object" class="collection">
-      <li v-for="value in object" class="collection-item avatar">
-        <img src="value.homeTeamLogo" alt="" class="circle">
-        <p>21.12.2019 18:00</p>
-        <span class="title">{{ value.homeTeamName }} vs {{ value.awayTeamName }}</span>
-        <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-      </li>
-    </ul>
+    <li v-for="value in object" class="collection-item">
+      <p>21.12.2019 18:00</p>
+
+      <div class="fixture-container">
+
+        <div class="fixture-home-container">
+          <img v-bind:src="value.homeTeamLogo">
+          <span class="title">{{ value.homeTeamName }}</span>
+        </div>
+
+        <span class="title"> vs </span>
+
+        <div class="fixture-away-container">
+          <span class="title">{{ value.awayTeamName }}</span>
+          <img v-bind:src="value.awayTeamLogo">
+        </div>
+
+      </div>
+
+    </li>
+  </ul>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="js/vue.min.js"></script>

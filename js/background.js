@@ -11,8 +11,6 @@
       console.log(data)
 
       data.api.fixtures.forEach(function (fixture) {
-        // console.log(fixture.homeTeam.team_name + " vs " + fixture.awayTeam.team_name);
-        // fixturesTest.push({fixture.homeTeam.team_name + " vs " + fixture.awayTeam.team_name});
         fixturesTest.push({
           homeTeamLogo: fixture.homeTeam.logo,
           homeTeamName: fixture.homeTeam.team_name,

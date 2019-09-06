@@ -9,3 +9,26 @@ body{
     height: 100%;
 
 }
+
+.fixture-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+img{
+    height: 45px;
+}
+
+.fixture-home-container, .fixture-away-container{
+    display: flex;
+    align-items: center;
+}
+
+.fixture-home-container > span {
+    margin-left: 30px;
+}
+
+.fixture-away-container > span {
+    margin-right: 30px;
+}
