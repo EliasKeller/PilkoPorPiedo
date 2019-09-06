@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>PPP</title>
-  </head>
 
-  <body>
-    <div id="app">
-      <h1>{{ appName }}</h1>
-    </div> 
-  </body>
-  
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <title>PPP</title>
+</head>
+
+<body>
+
+  <ul id="v-for-object" class="collection">
+    <li v-for="value in object" class="collection-item">
+      <p>21.12.2019 18:00</p>
+
+      <div class="fixture-container">
+
+        <div class="fixture-home-container">
+          <img v-bind:src="value.homeTeamLogo">
+          <span class="title">{{ value.homeTeamName }}</span>
+        </div>
+
+        <span class="title"> vs </span>
+
+        <div class="fixture-away-container">
+          <span class="title">{{ value.awayTeamName }}</span>
+          <img v-bind:src="value.awayTeamLogo">
+        </div>
+
+      </div>
+
+    </li>
+  </ul>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="js/vue.min.js"></script>
   <script src="js/background.js"></script>
+</body>
+
 </html>

@@ -1,27 +1,40 @@
-    const API_KEY = 'c6bce5764efe778c7383b54d5b3297e3119f518fe4bf122b1cfece5978244525'
-    var request = new XMLHttpRequest();
 
-    request.open('GET', 'https://apifootball.com/api/?action=get_events&from=2019-02-08&to=2019-02-11&league_id=62&APIkey=' + API_KEY, true);
-    request.onload = function () {
+  var data = null;
+  var fixturesTest = [];
 
-  var matchResults = JSON.parse(this.response);
+  var xhr = new XMLHttpRequest();
+  xhr.withCredentials = true;
 
-  if (request.status >= 200 && request.status < 400) {
-    console.log(matchResults);
-    fillMatchResults(matchResults);
-  } else {
-    console.log('error');
-  }
-}
+  xhr.addEventListener("readystatechange", function () {
+    if (this.readyState === this.DONE) {
+      const data = this.response;
+      console.log(data)
 
-request.send();
+      data.api.fixtures.forEach(function (fixture) {
+        fixturesTest.push({
+          homeTeamLogo: fixture.homeTeam.logo,
+          homeTeamName: fixture.homeTeam.team_name,
+          awayTeamLogo: fixture.awayTeam.logo,
+          awayTeamName: fixture.awayTeam.team_name,
+        })
+      });    
+
+    }
+  });
+
+  xhr.responseType = 'json';
+  xhr.open("GET", "https://api-football-v1.p.rapidapi.com/v2/fixtures/league/2/Regular_Season_-_1");
+  xhr.setRequestHeader("x-rapidapi-host", "api-football-v1.p.rapidapi.com");
+  xhr.setRequestHeader("x-rapidapi-key", "b3f656f046mshe5362581d8dedb8p115949jsn1bb5e19947d0");
+
+  xhr.send(data);
+
+  new Vue({
+    el: '#v-for-object',
+    data: {
+      object: this.fixturesTest
+    }
+  });
 
 
-function fillMatchResults(matchResults) {
-    var app = new Vue({
-        el: '#app',
-        data: {
-            appName: matchResults[0].match_hometeam_name + ' vs ' + matchResults[0].match_awayteam_name
-        }
-    })
-}
+
