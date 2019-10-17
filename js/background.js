@@ -1,4 +1,6 @@
   var fixtures = [];
+  var rounds = []
+  var selectedRound = 3;
 
   new Vue({
     el: '#v-for-object',
@@ -6,36 +8,76 @@
       object: this.fixtures
     },
     created: function () {
-      var data;
 
-      var xhr = new XMLHttpRequest();
-      xhr.withCredentials = true;
-
-      xhr.addEventListener("readystatechange", function () {
-        if (this.readyState === this.DONE) {
-          data = this.response;
-          console.log(data)
-
-          data.api.fixtures.forEach(function (fixture) {
-            let date = new Date(Date.parse(fixture.event_date));
-            fixtures.push({
-              eventDate: date.toDateString() + ' ' + date.getHours() + ':' + date.getMinutes(),
-              homeTeamLogo: fixture.homeTeam.logo,
-              homeTeamName: fixture.homeTeam.team_name,
-              awayTeamLogo: fixture.awayTeam.logo,
-              awayTeamName: fixture.awayTeam.team_name,
-            })
-          });    
-
+      fetch("https://api-football-v1.p.rapidapi.com/v2/fixtures/league/524/Regular_Season_-_" + selectedRound, {
+	          "method": "GET",
+            "headers": {
+              "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+              "x-rapidapi-key": "b3f656f046mshe5362581d8dedb8p115949jsn1bb5e19947d0"
+            }
+      })
+      .then(
+        function(response) {
+          if (response.status !== 200) {
+            console.log('Looks like there was a problem. Status Code: ' +
+              response.status);
+            return;
+          }
+    
+          response.json().then(function(data) {
+            console.log(data)
+            data.api.fixtures.forEach(function (fixture) {
+              let date = new Date(Date.parse(fixture.event_date));
+              fixtures.push({
+                eventDate: date.toDateString() + ' ' + date.getHours() + ':' + date.getMinutes(),
+                homeTeamLogo: fixture.homeTeam.logo,
+                homeTeamName: fixture.homeTeam.team_name,
+                awayTeamLogo: fixture.awayTeam.logo,
+                awayTeamName: fixture.awayTeam.team_name,
+              });
+            });
+          });
         }
+      )
+      .catch(function(err) {
+        console.log('Fetch Error :-S', err);
       });
+    }
+  });
 
-      xhr.responseType = 'json';
-      xhr.open("GET", "https://api-football-v1.p.rapidapi.com/v2/fixtures/league/524/Regular_Season_-_1");
-      xhr.setRequestHeader("x-rapidapi-host", "api-football-v1.p.rapidapi.com");
-      xhr.setRequestHeader("x-rapidapi-key", "b3f656f046mshe5362581d8dedb8p115949jsn1bb5e19947d0");
 
-      xhr.send(data);
+  new Vue({
+    el: '#v-for-object2',
+    data: {
+      object: this.rounds
+    },
+    created: function () {
+
+      fetch("https://api-football-v1.p.rapidapi.com/v2/fixtures/rounds/524", {
+	          "method": "GET",
+            "headers": {
+              "x-rapidapi-host": "api-football-v1.p.rapidapi.com",
+              "x-rapidapi-key": "b3f656f046mshe5362581d8dedb8p115949jsn1bb5e19947d0"
+            }
+      })
+      .then(
+        function(response) {
+          if (response.status !== 200) {
+            console.log('Looks like there was a problem. Status Code: ' +
+              response.status);
+            return;
+          }
+          let roundIndex = 1
+          response.json().then(function(data) {
+            data.api.fixtures.forEach(function (round){
+              rounds.push(roundIndex++);
+            });
+          });
+        }
+      )
+      .catch(function(err) {
+        console.log('Fetch Error :-S', err);
+      });
     }
   });
 
