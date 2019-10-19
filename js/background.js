@@ -3,7 +3,7 @@
   var selectedRound = 3;
 
 var fixturesComponent = new Vue({
-    el: '#v-for-object',
+    el: '#v-for-fixtures',
     data: {
       object: this.fixtures
     },  
@@ -53,7 +53,7 @@ var fixturesComponent = new Vue({
 
 
   new Vue({
-    el: '#v-for-object2',
+    el: '#v-for-rounds',
     data: {
       object: this.rounds
     },
@@ -89,6 +89,7 @@ var fixturesComponent = new Vue({
       switchRound: function(value){
           selectedRound = value;
           fixturesComponent.loadFixtures();
+          fixturesComponent.$forceUpdate();
       }
     }
   });

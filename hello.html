@@ -11,7 +11,7 @@
 <body>
 
   
-    <ul id="v-for-object2" class="pagination">
+    <ul id="v-for-rounds" class="pagination">
         <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
 
         <li v-for="value in object" class="waves-effect" v-on:click="switchRound(value)"><a>{{ value }}</a></li>
@@ -20,7 +20,7 @@
       </ul>
              
 
-  <ul id="v-for-object" class="collection">
+  <ul id="v-for-fixtures" class="collection">
     <li v-for="value in object" class="collection-item">
       <p>{{ value.eventDate }}</p>
 
